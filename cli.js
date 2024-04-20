@@ -2,13 +2,16 @@
 const fs = require("fs");
 const yargs = require("yargs");
 const { hideBin } = require("yargs/helpers");
-const generateStyles = require("./generateStyles");
+const packageJson = require("./package.json");
+const generateStyles = require("./lib/generateStyles");
+
 const options = yargs(hideBin(process.argv))
+  .usage("Usage: $0 [command|options]")
   .command("init", "Generate tenoxui config file", {}, () => {
     generateConfigFile();
   })
   .command("build", "Generate styles", {}, () => {
-    generateStyles();
+    generateStyles.generateStyles();
   })
   .option("watch", {
     alias: "w",
@@ -23,14 +26,15 @@ const options = yargs(hideBin(process.argv))
   .help("h")
   .alias("h", "help").argv;
 
+console.log(`${generateStyles.getTimeStamp()} tenoxui-cli v${packageJson.version}`);
+
 if (options.watch) {
-  generateStyles({ watchMode: true });
+  generateStyles.generateStyles({ watchMode: true });
 } else if (options.watch) {
   generateConfigFile();
 } else {
-  // generateStyles();
   console.log(
-    `${generateStyles.getTimeStamp()} Use -h or --help to see all command!`
+    `${generateStyles.getTimeStamp()} Use -h or --help to see all command!`,
   );
 }
 
@@ -43,6 +47,6 @@ function generateConfigFile() {
 
   fs.writeFileSync("tenoxui.config.js", configContent);
   console.log(
-    `${generateStyles.getTimeStamp()} Config file generated successfully!`
+    `${generateStyles.getTimeStamp()} Config file generated successfully!`,
   );
 }
