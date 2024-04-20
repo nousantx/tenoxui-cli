@@ -1,0 +1,29 @@
+{
+  "name": "@tenoxui/cli",
+  "version": "0.0.1-alpha",
+  "description": "TenoxUI cli",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "chokidar": "^3.6.0",
+    "glob": "^10.3.12",
+    "yargs": "^17.7.2"
+  },
+  "bin": {
+    "tenoxui": "cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tenoxui/cli.git"
+  },
+  "keywords": [
+    "cli",
+    "css-framework",
+    "ui-components"
+  ],
+  "author": "NOuSantx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tenoxui/cli/issues"
+  },
+  "homepage": "https://github.com/tenoxui/cli#readme"
+}
