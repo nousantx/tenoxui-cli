@@ -1,6 +1,6 @@
 {
   "name": "@tenoxui/cli",
-  "version": "0.0.2-alpha",
+  "version": "0.0.3-alpha",
   "description": "TenoxUI cli",
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
@@ -9,7 +9,7 @@
     "yargs": "^17.7.2"
   },
   "bin": {
-    "tenoxui": "cli.js"
+    "tenoxui": "cli.cjs"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,13 @@
     "cli",
     "css-framework",
     "ui-components"
+  ],
+  "files": [
+    "lib/*",
+    "cli.cjs",
+    "package.json",
+    "README.md",
+    "LICENSE"
   ],
   "author": "NOuSantx",
   "license": "MIT",
