@@ -50,6 +50,7 @@ class Extractor {
   static extractClassNamesFromJSX(code) {
     const classnames = [];
     const ast = parser.parse(code, {
+      sourceType: "unambiguous",
       plugins: ["jsx"],
     });
 
@@ -93,7 +94,8 @@ class StyleScanner extends Extractor {
 
 class StyleGenerator extends StyleScanner {
   static generateOutput(changedFilePath = null) {
-    const { inputStyles, inputFiles, outputStyles, isModule } = Extractor.loadConfig();
+    const { inputStyles, inputFiles, outputStyles, isModule } =
+      Extractor.loadConfig();
 
     let htmlFilePaths = [];
     if (changedFilePath) {
@@ -119,17 +121,18 @@ class StyleGenerator extends StyleScanner {
 
     return { inputStyles, inputFiles, outputStyles, isModule };
   }
-static generateConfigFile() {
-  const configContent = `module.exports = {
+  static generateConfigFile() {
+    const configContent = `module.exports = {
   inputFiles: "./**/*.{html,jsx}",
   inputStyles: {},
   outputStyles: "dist/output.js"
 };`;
 
-  fs.writeFileSync("tenoxui.config.cjs", configContent);
-  console.log(`${Extractor.getTimeStamp()} Config file generated successfully!`);
-}
-
+    fs.writeFileSync("tenoxui.config.cjs", configContent);
+    console.log(
+      `${Extractor.getTimeStamp()} Config file generated successfully!`,
+    );
+  }
 }
 
 // Command line options using yargs
@@ -137,10 +140,11 @@ const argv = yargs
   .usage("Usage: $0 [option|command]")
   .command("init", "Generate tenoxui config file", {}, () => {
     StyleGenerator.generateConfigFile();
-    process.exit()
+    process.exit();
   })
   .command("build", "Generate styles", {}, () => {
     StyleGenerator.generateOutput();
+    process.exit();
   })
   .option("watch", {
     alias: "w",
@@ -158,7 +162,9 @@ const argv = yargs
 // Watch mode
 if (argv.watch) {
   const { inputFiles } = Extractor.loadConfig();
-  console.log(`${Extractor.getTimeStamp()} -w flag detected.\x1b[0m Using watch mode...`);
+  console.log(
+    `${Extractor.getTimeStamp()} -w flag detected.\x1b[0m Using watch mode...`,
+  );
   const watcher = chokidar.watch(inputFiles);
   watcher.on("change", (changedFilePath) => {
     StyleGenerator.generateOutput(changedFilePath);
@@ -169,10 +175,6 @@ if (argv.watch) {
 } else if (argv.init) {
   StyleGenerator.generateConfigFile();
 } else {
-  console.log(
-    `${Extractor.getTimeStamp()} Nothing to do...`,
-  );
-  console.log(
-    `${Extractor.getTimeStamp()} Use -h or --help to show help...`,
-  );
+  console.log(`${Extractor.getTimeStamp()} Nothing to do...`);
+  console.log(`${Extractor.getTimeStamp()} Use -h or --help to show help...`);
 }
