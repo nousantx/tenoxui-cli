@@ -1,14 +1,27 @@
 # TenoxUI CLI
 
-## Install
+## Installation
 
 ```sh
 npm i -g @tenoxui/cli
 ```
 
+Usage :
+
+```sh
+tenoxui [option]
+```
+
+## Initialization
+
+```sh
+tenoxui init
+```
+it will generate a tenoxui configuration file.
+
 ## Configuration
 
-`tenoxui.config.js` :
+`tenoxui.config.cjs` :
 
 ```js
 module.exports = {
