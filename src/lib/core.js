@@ -10,6 +10,15 @@ export class ClassNameExtractor {
 
     const { results, scanTime } = await this.scanner.scan()
     const allClassNames = Object.values(results).flat()
+
+    if (!allClassNames.length > 0) {
+      this.logger.error('Found 0 TenoxUI class names!')
+      return {
+        success: false,
+        error: 'No class names found with current TenoxUI configuration.'
+      }
+    }
+
     const generation = await this.generator.generate(allClassNames)
 
     if (generation.success) {

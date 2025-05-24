@@ -3,7 +3,7 @@ import { TenoxUI, constructRaw } from 'tenoxui'
 
 export class Extractor {
   constructor(config = [], cssConfig = {}) {
-    this.config = config
+    this.config = config || []
     this.cssConfig = cssConfig
     this.core = new TenoxUI(this.cssConfig)
   }
@@ -41,15 +41,15 @@ export class Extractor {
         )
       ]
 
-      const validatedClassNames = this.core
-        .process(classNames)
-        .map(
-          (i) =>
-            (i.isImportant ? '!' : '') +
-            (i.rules ? constructRaw(i.raw[0], i.raw[1], '', '') : i.raw[6])
-        )
-
-      return validatedClassNames || []
+      return classNames.length > 0
+        ? this.core
+            .process(classNames)
+            .map(
+              (i) =>
+                (i.isImportant ? '!' : '') +
+                (i.rules ? constructRaw(i.raw[0], i.raw[1], '', '') : i.raw[6])
+            )
+        : []
     } catch (error) {
       console.error('Error extracting class names:', error)
       return []

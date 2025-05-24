@@ -21,14 +21,13 @@ export class CSSGenerator {
     try {
       // Process classes
       const processStart = performance.now()
-      const uniqueClassNames = [...new Set(classNames)]
       const processEnd = performance.now()
       metrics.processingTime = processEnd - processStart
 
       const css = new TenoxUI(this.cssConfig)
 
       const renderStart = performance.now()
-      const generatedCSS = css.render(this.cssConfig.apply || {}, uniqueClassNames)
+      const generatedCSS = css.render(this.cssConfig.apply || {}, classNames)
       const renderEnd = performance.now()
       metrics.renderingTime = renderEnd - renderStart
 
@@ -49,7 +48,7 @@ export class CSSGenerator {
 
       return {
         success: true,
-        classCount: uniqueClassNames.length,
+        classCount: classNames.length,
         outputPath,
         metrics
       }
