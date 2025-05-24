@@ -5,6 +5,7 @@ export class FileWatcher {
   constructor(extractor, options = {}) {
     this.extractor = extractor
     this.dirs = options.dirs || ['./src']
+    this.extensions = options.extensions || []
     this.filePatterns = options.filePatterns || ['**/*.{js,jsx,ts,tsx}']
     this.ignorePatterns = options.ignorePatterns || ['**/node_modules/**', '**/dist/**']
     this.logger = options.logger
@@ -47,6 +48,6 @@ export class FileWatcher {
 
   shouldProcessFile(filepath) {
     const ext = path.extname(filepath).toLowerCase()
-    return ['.js', '.jsx', '.ts', '.tsx'].includes(ext)
+    return this.extensions.includes(ext)
   }
 }

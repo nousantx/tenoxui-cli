@@ -1,6 +1,7 @@
 module.exports = {
-  include: ['app/**/*.{js,jsx,ts,tsx}'],
+  include: ['index.html', 'app/**/*.{js,jsx,ts,tsx,html}'],
   exclude: ['**/node_modules/**', '**/dist/**', '**/build/**'],
+  extensions: ['.html', '.css', '.astro'],
   outDir: 'css',
   css: {
     property: {
@@ -11,13 +12,6 @@ module.exports = {
       dark: '@media (prefers-color-scheme: dark)',
       hover: '&:hover',
       focus: '&:focus'
-    },
-    aliases: {
-      asdhjys7s73uj: 'bg-blue hover:bg-red'
-    },
-    apply: {
-      body: 'bg-red dark:bg-blue flex items-center h-screen justify-center'
-    },
-    typeOrder: ['asdhjys7s73uj']
+    }
   }
 }

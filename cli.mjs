@@ -25,6 +25,7 @@ program
   .option('-c, --config <path>', 'path to config file', 'tenoxui.config.js')
   .option('-i, --include <patterns>', 'glob patterns to include files (comma separated)')
   .option('-e, --exclude <patterns>', 'glob patterns to exclude files (comma separated)')
+  .option('--ext, --extensions <patterns>', 'file extensions to allow', 'html,js,ts,jsx,tsx')
   .option('-d, --dir <path>', 'root directory', '.')
   .option('-o, --output-dir <path>', 'output directory', 'dist')
   .option('-f, --output-file <name>', 'output file name', 'index.css')
@@ -45,6 +46,7 @@ async function main() {
   let config = {
     include: ['**/*.{js,jsx,ts,tsx}'],
     exclude: ['**/node_modules/**', '**/dist/**'],
+    extensions: ['.html', '.js', '.ts', '.jsx', '.tsx', '.vue', '.svelte'],
     rootDir: options.dir,
     outDir: options.outputDir,
     outputFile: options.outputFile,
@@ -78,6 +80,12 @@ async function main() {
   if (options.exclude) {
     config.exclude = options.exclude.split(',').map((p) => p.trim())
     logger.debug(`Override exclude patterns from CLI: ${config.exclude}`)
+  }
+
+  if (options.extensions) {
+    config.extensions = options.extensions.split(',').map((p) => '.' + p.trim())
+
+    logger.debug(`Override file extensions to reserve: ${config.extensions}`)
   }
 
   if (options.dir) {
@@ -114,6 +122,7 @@ async function main() {
   if (options.watch) {
     const watcher = new FileWatcher(extractor, {
       dirs: [config.rootDir],
+      extensions: config.extensions,
       filePatterns: config.include,
       ignorePatterns: config.exclude,
       logger
