@@ -1,39 +1,55 @@
 {
-  "name": "@tenoxui/cli",
-  "version": "0.0.5-alpha",
-  "description": "TenoxUI cli",
-  "dependencies": {
-    "@babel/parser": "^7.24.4",
-    "@babel/traverse": "^7.24.1",
-    "@babel/types": "^7.24.0",
-    "cheerio": "^1.0.0-rc.12",
-    "chokidar": "^3.6.0",
-    "glob": "^10.3.12",
-    "yargs": "^17.7.2"
-  },
-  "bin": {
-    "tenoxui": "index.cjs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tenoxui/cli.git"
-  },
+  "name": "@nousantx/txli",
+  "version": "1.0.0-alpha.0",
+  "description": "Minimal CLI tool for TenoxUI CSS framework",
+  "author": "NOuSantx <nousantx@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/nousantx/tenoxui-cli#readme",
   "keywords": [
     "cli",
     "css-framework",
-    "ui-components"
+    "javascript",
+    "tokenizer"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nousantx/tenoxui-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nousantx/tenoxui-cli/issues"
+  },
   "files": [
-    "lib/*",
-    "cli.cjs",
+    "cli.mjs",
+    "dist",
     "package.json",
     "README.md",
     "LICENSE"
   ],
-  "author": "NOuSantx",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tenoxui/cli/issues"
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs.js",
+      "import": "./dist/index.es.js"
+    }
   },
-  "homepage": "https://github.com/tenoxui/cli#readme"
+  "bin": {
+    "txli": "cli.mjs"
+  },
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@nousantx/someutils": "^0.7.0",
+    "vite": "^6.2.6"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "chokidar": "^4.0.3",
+    "commander": "^13.1.0",
+    "glob": "^11.0.1",
+    "nguraijs": "^0.3.0",
+    "tenoxui": "^1.0.0"
+  },
+  "packageManager": "pnpm@10.4.0+sha512.6b849d0787d97f8f4e1f03a9b8ff8f038e79e153d6f11ae539ae7c435ff9e796df6a862c991502695c7f9e8fac8aeafc1ac5a8dab47e36148d183832d886dd52"
 }
